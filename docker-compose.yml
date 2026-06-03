@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  controller:
+    build: ./controller
+    ports:
+      - "8000:8000"
+  gui-backend:
+    build: ./gui/backend
+    environment:
+      - CONTROLLER_URL=http://controller:8000
+    ports:
+      - "7000:7000"
+    depends_on:
+      - controller

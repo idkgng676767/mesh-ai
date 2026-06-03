@@ -18,10 +18,18 @@ The central orchestration server manages:
 - `PUT /nodes/{id}/heartbeat` - Heartbeat ping
 - `DELETE /nodes/{id}` - Deregister node
 
+### Model Registry
+- `POST /models` - Register a model
+- `GET /models` - List models
+- `GET /models/{id}` - Model details
+- `POST /models/activate` - Activate a model for the current period
+- `GET /models/{model_id}/layers/{layer_id}` - Stream a model layer
+
 ### Voting & Model Selection
 - `POST /votes/{tier}` - Cast vote for model in tier
 - `GET /votes/results` - Current voting results
 - `GET /current-model` - Active model for this month
+ - `POST /admin/rollover` - Force monthly selection (MVP)
 
 ### Inference
 - `POST /infer` - Submit inference request
@@ -30,6 +38,10 @@ The central orchestration server manages:
 ### Layer Management
 - `GET /layers/{model_id}` - Get layer assignments
 - `POST /layers/rebalance` - Trigger rebalancing
+
+### Points
+- `GET /points/{node_id}/balance` - Points balance
+- `POST /points/accrue` - Manual daily accrual (MVP)
 
 ## Data Models
 

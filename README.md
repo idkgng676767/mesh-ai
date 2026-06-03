@@ -93,26 +93,31 @@ Example:
 - Fault tolerance & redundancy
 - Latency optimization
 
+## MVP Scope (Initial Release)
+
+- **Supported tiers:** 8B, 24B, 72B (144B and Frontier are listed but not enabled in MVP)
+- **Points policy:** Daily points are accrued from actual utilization; inference costs use a simple fixed-rate table
+- **Throughput targets:** ~5 requests/second for 200 active nodes (MVP goal)
+- **Node count targets:** 100–500 nodes during MVP rollout
+
 ## Project Structure
 
 ```
 mesh-ai/
-├── controller/           # Central orchestration server
-│   ├── api/             # FastAPI endpoints
-│   ├── models/          # Database models
-│   ├── orchestrator/    # Layer assignment & voting
-│   └── requirements.txt
-├── node-app/            # User-facing node application
-│   ├── agent/           # Main node agent
-│   ├── monitor/         # Resource monitoring
-│   ├── inference/       # Layer processing
-│   └── requirements.txt
-├── gui/                 # Web interface
-│   ├── frontend/        # React/Vue frontend
-│   └── backend/         # FastAPI server
-├── docs/                # Architecture & docs
-├── scripts/             # Deployment & setup
-└── README.md
+├── controller/           # Central orchestration server (FastAPI)
+│   ├── app/              # API, models, scheduler
+│   ├── requirements.txt
+│   └── tests/
+├── node-app/             # User-facing node application (FastAPI)
+│   ├── agent/            # Monitoring + inference agent
+│   ├── requirements.txt
+│   └── tests/
+├── gui/                  # Web interface
+│   ├── frontend/         # React frontend (Vite)
+│   └── backend/          # FastAPI server
+├── docs/                 # Architecture & docs
+├── scripts/              # Deployment & setup
+└── docker-compose.yml
 ```
 
 ## Tech Stack
@@ -137,7 +142,7 @@ cd mesh-ai
 # Setup controller
 cd controller
 pip install -r requirements.txt
-python -m api.main
+python -m app.main
 
 # Setup node (separate terminal)
 cd node-app
